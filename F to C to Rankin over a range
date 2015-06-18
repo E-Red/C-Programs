@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <math.h>
+
+int main (void)
+{
+	float degrees_C, degrees_F, degrees_R, low, high, increment, control_value, final_value;
+	int range;
+	
+	printf("This program converts degrees Fehrenheit to Celsiuis & Rankin over a range.\n\n");
+	printf("Enter the temperature low range in degrees Fehrenheit>");
+	scanf("%f", &low);
+	printf("Enter the temperature high range in degrees Fehrenheit>");
+	scanf("%f", &high);
+	printf("Enter the number of calculation steps over the range>");
+	scanf("%i", &range);
+	printf("\n\n");
+	
+	final_value=high;
+	increment= ((high-low)/(range-1));
+	
+	printf("Degrees:\tFehrenheit\t\tCelsius\t\tRankin\t\n");
+	for(control_value=low; control_value<=final_value; control_value+=increment)
+	{
+		degrees_F=control_value;
+		degrees_C=(5.0/9.0)*(degrees_F-32.0);
+		degrees_R=degrees_F+459.67;
+		printf("\t\t\t%4.3f\t\t%4.3f\t\t%4.3f\n", degrees_F, degrees_C, degrees_R);
+		
+			
+	}
+	
+	return (0);
+}
