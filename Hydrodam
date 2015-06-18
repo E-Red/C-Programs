@@ -1,0 +1,57 @@
+//  Emma Redfoot
+//  CIS 217    
+// Excercise 11.1
+// Check out conditional compilation
+//Create a function for a set of calculations, use in a for loop.
+
+#include <stdio.h>
+#include <math.h>
+#define PI 3.141593
+
+float calculate_power(float height, float efficiency, float diameter);
+
+int main (void)
+{
+
+	//Declare variables
+	float i=0, D_low, D_high, steps, h, E, D, increment, power_kw;
+	
+	//Get values from the user
+	printf("Hydroelectric power calculation over turbine nozzle range\n");
+	printf("Enter expected drop height in meters>");
+	scanf("%f", &h);
+	printf("Enter expected power conversion efficiency in percent>");
+	scanf("%f", &E);
+	printf("Enter smallest nozzle size in centimeters>");
+	scanf("%f", &D_low);
+	printf("Enter largest nozzle size in centimeters>");
+	scanf("%f", &D_high);
+	printf("Enter the number of nozzle sizes in calculation steps>\n");
+	scanf("%f", &steps);
+	
+	
+	increment=(D_high-D_low)/(steps-1);	
+	printf("Diameter \t Power KW\n");
+	printf("-------------------------\n");
+	
+	for (i=D_low; i<=D_high; i+=increment)
+	{
+		D=i;
+		power_kw=calculate_power(h, E, D);
+		printf("%f \t %f\n", D, power_kw);
+	}
+	
+	return (0);
+}
+float calculate_power (float height, float efficiency, float diameter)
+	{
+		float P, Q, h, E, G, V, D, A, power;
+		G=9.81;
+		A=PI*((diameter/2)*(diameter/2));
+		V=sqrt(2*G*(height/100));
+		Q=A*V;
+		P=G*Q/10*(height/100)*(efficiency/100);
+		power=P;
+		return power;
+	
+}
