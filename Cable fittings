@@ -1,0 +1,87 @@
+Emma Redfoot
+
+#include <stdio.h>
+#include <math.h>
+
+
+int main(void)
+{
+	int i=0, TotalCables, Top, TotalInstalledCables;
+	float OuterRowCables, CableR, PercentFill, ConduitR, d, Nmax, FirestoppingMaterial, ConduitArea, TotalCablesArea,
+	FirestopThickness, Conduits, ConduitDiameter, CableDiameter, theta=0, sum=0, PI, denominator;
+
+	
+	Top:
+	
+	printf("Calculate the number of cables that fit inside of a conduit\n\t Plus the amount of Firestopping Material needed\n\n\n");
+	printf("The following 2 inputs are needed to calculate the number\n\t of cables that fit inside the conduit:\n\n");
+	printf("Enter the Conduit Inner Diameter in inches >");
+	scanf("%f", &ConduitDiameter);
+	printf("Enter the Cable Outer Diameter in inches >");
+	scanf("%f", &CableDiameter);
+	printf("\n\nThe following 3 inputs are needed to calculate\n the amount of the firestop material needed:\n");
+	printf("Enter the maximum percent of allowed cable fill >");
+	scanf("%f", &PercentFill);
+	printf("Enter the thickness of the firestop material in inches >");
+	scanf("%f",&FirestopThickness);
+	printf("Enter the number of conduits >");
+	scanf("%f", &Conduits);
+		if((ConduitDiameter==0 )||((CableDiameter==0)))
+	{
+		goto Top;
+	}
+	
+	PI=3.141593;
+	CableR=CableDiameter/2;
+	ConduitR=ConduitDiameter/2;
+	d=CableDiameter*0.866;
+	Nmax=(ConduitR-CableR)/d;
+	PercentFill=PercentFill/100;
+	
+	
+	if (Nmax>0)
+	{
+			denominator=ConduitR-CableR;
+			theta= asinf(CableR/denominator);
+			OuterRowCables=(PI/theta);
+			for(i=2; i <=Nmax; i++)
+					{
+					
+					sum=sum + (PI/(asin (CableR/(ConduitR-(d*i)))));
+				}
+					
+			TotalCables=sum + (OuterRowCables+Nmax);		
+			printf("%i Total Cables\n", TotalCables);
+			if(TotalCables>3)
+				{
+					TotalCables=TotalCables+1;
+				}
+			printf("%i Total Cables\n", TotalCables);
+			TotalInstalledCables =TotalCables*PercentFill;
+			TotalCablesArea=TotalInstalledCables*PI*CableR*CableR;	
+			ConduitArea=ConduitR*ConduitR*PI;
+			FirestoppingMaterial=(ConduitArea-TotalCablesArea)*FirestopThickness*Conduits;
+		
+		
+	}
+	printf("%f theta\n", theta);
+	printf("%f d\n", d);
+	printf("%f Nmax\n", Nmax);
+	printf("%f PI \n", PI);
+	printf("%f Outer Row Cables\n", OuterRowCables);
+	printf("%i Total Cables\n", TotalCables);
+	printf("%i Total Installed Cables\n", TotalInstalledCables);
+	printf("%f Total Cableas area \n", TotalCablesArea);
+	
+
+	printf("Total Cables %i \n", TotalCables);
+	printf(" Conduit Area %f \n", ConduitArea);
+	printf("Total Cables Area %f \n", TotalCablesArea);
+	printf("At %f %% fill the Number of Cables that fit inside the conduit is: %i", PercentFill*100, TotalInstalledCables);
+	printf("\n");
+	printf("The Volume of the Firestop Material Needed is: %f Cubic Inches", FirestoppingMaterial);
+	
+	return (0);
+	
+	
+}
