@@ -1,0 +1,78 @@
+//Emma Redfoot
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+float quadratic_f(float a, float b, float c, int root_select);
+
+#define ERROR_CODE 99999999
+#define POS_ROOT 1
+#define NEG_ROOT 0
+#define FOREVER 10
+
+
+int main (void)
+
+{
+	int TOP;
+	float a, b, c, x1, x2, D, root_select;
+	
+	TOP:
+	
+	while(FOREVER > 0)
+	{
+	printf("\nQuadratic Equation Root Calculator aX^2 + bX + c \n");
+	printf("Enter a> \t");
+	scanf("%f", &a);
+	printf("Enter b> \t");
+	scanf("%f", &b);
+	printf("Enter c> \t");
+	scanf("%f", &c);
+	
+	D = b*b-4*a*c;
+	
+	if (a==0)
+	{
+	printf("Input a cannot be 0 \n");
+	goto TOP;
+	}
+	
+	x1= quadratic_f(a,b,c, POS_ROOT);
+		
+	if (D>0)
+		{
+			x2=quadratic_f(a,b,c, NEG_ROOT);
+			printf("The roots are %f and %f", x1, x2);
+		}	
+	}
+}
+	
+float quadratic_f(float a, float b, float c, int root_select)
+	{
+		float D, x1, x2, root, x;
+	
+		D = b*b-4*a*c;
+		x1= (-b+sqrt(D))/(2*a);
+		x2= (-b-sqrt(D))/(2*a);
+		
+		if (D<0)
+		{
+		D=ERROR_CODE;
+		printf("Modify one of the following:\n\n");
+		printf("Input a must be less than or equal to 0.25\n");
+		printf("Input b must be greater than or equal to 2.\n");
+		printf("Input c must be less than or equal to 0.25.\n\n");	
+		return ERROR_CODE;
+		}
+		
+		if (root_select)
+		{
+		root=x1;
+		}
+		else
+		{
+		root=x2;
+		}
+		return root; 
+		}	
+
